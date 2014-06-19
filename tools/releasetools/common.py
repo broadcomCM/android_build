@@ -210,7 +210,7 @@ def BuildBootableImage(sourcedir):
 
   p1 = Run(["mkbootfs", os.path.join(sourcedir, "RAMDISK")],
            stdout=subprocess.PIPE)
-  p2 = Run([os.environ.get("MINIGZIP", "minigzip")],
+  p2 = Run([os.environ.get("MINIGZIP", "lzma")],
            stdin=p1.stdout, stdout=ramdisk_img.file.fileno())
 
   p2.wait()
