@@ -24,13 +24,19 @@ PRODUCT_PACKAGES := \
     libdrmframework \
     libdrmframework_jni \
     libfwdlockengine \
-    VideoEditor \
     WAPPushManager
+
+ifneq ($(BOARD_NO_HWCODECS),true)
+
+PRODUCT_PACKAGES := \
+    VideoEditor
 
 PRODUCT_PACKAGES += \
     libvideoeditor_jni \
     libvideoeditorplayer \
     libvideoeditor_core
+    
+endif
 
 # Additional settings used in all AOSP builds
 PRODUCT_PROPERTY_OVERRIDES := \
@@ -45,8 +51,17 @@ $(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
 # Get the TTS language packs
 $(call inherit-product-if-exists, external/svox/pico/lang/all_pico_languages.mk)
 
-# Get a list of languages.
+ifneq ($(BOARD_HAVE_LOWRAM),true)
+
+# Get a complete list of languages.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
+
+else
+
+# Get a little list of languages.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/locales_small.mk)
+
+endif
 
 # Get everything else from the parent package
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
