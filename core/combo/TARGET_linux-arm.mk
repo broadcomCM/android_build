@@ -67,6 +67,7 @@ endif
 TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
 TARGET_arm_CFLAGS :=    -O2 \
+                        -DNDEBUG \
                         -fomit-frame-pointer \
                         -fstrict-aliasing    \
                         -funswitch-loops
@@ -78,6 +79,7 @@ TARGET_arm_CFLAGS :=    -O2 \
 ifeq ($(ARCH_ARM_HAVE_THUMB_SUPPORT),true)
 TARGET_thumb_CFLAGS :=  -mthumb \
                         -Os \
+                        -DNDEBUG \
                         -fomit-frame-pointer \
                         -fno-strict-aliasing
 else
@@ -146,7 +148,7 @@ else
 TARGET_GLOBAL_CFLAGS +=	-mno-thumb-interwork
 endif
 
-TARGET_GLOBAL_CPPFLAGS += -fvisibility-inlines-hidden
+TARGET_GLOBAL_CPPFLAGS += -DNDEBUG -fvisibility-inlines-hidden
 
 # More flags/options can be added here
 TARGET_RELEASE_CFLAGS := \
