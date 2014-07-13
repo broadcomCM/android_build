@@ -18,6 +18,10 @@ DEVICE=$2
 BOOTIMAGE=$3
 
 UNPACKBOOTIMG=$(which unpackbootimg)
+if [ "$MINIGZIP" = "" ]
+then
+    MINIGZIP="gunzip"
+fi
 
 if [ -z "$MANUFACTURER" ]
 then
